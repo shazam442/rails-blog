@@ -4,7 +4,10 @@ Rails.application.routes.draw do
     registrations: "users/registrations"
   }
   get "/u/:id", to: "users#profile", as: "user"
-  resources :posts
+  resources :posts do
+    resources :comments
+  end
+  
   get "home", to: "pages#home"
   get "about", to: "pages#about"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
