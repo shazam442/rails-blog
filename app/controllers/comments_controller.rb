@@ -1,6 +1,7 @@
 class CommentsController < ApplicationController
     before_action :authenticate_user!
     before_action :set_post
+    before_action :set_comment, only: %i[ update destroy ]
 
     def create
         @comment = @post.comments.new(comment_params)
@@ -9,24 +10,38 @@ class CommentsController < ApplicationController
             flash[:notice] = "Comment successfully created"
             redirect_to @post
         else
-            flash[:error] = "Comment has not been created"
+            flash[:alert] = "Comment has not been created"
             redirect_to @post
         end
     end
+
+    def update
+        respond_to do |format|
+            if @comment.update(comment_params)
+                format.html { redirect_to @post, notice: "Comment was successfully updated" }
+            else
+                format.html { redirect_to @post, alert: "Something went wrong :(" }
+            end
+        end
+    end
+    
     
 
     def destroy
-        @comment = @post.comments.find(params[:id])
         if @comment.destroy
             flash[:notice] = 'Comment was successfully deleted.'
             redirect_to @post
         else
-            flash[:error] = 'Something went wrong'
+            flash[:alert] = 'Something went wrong'
             redirect_to @post
         end
     end
     
     private
+
+    def set_comment
+        @comment = @post.comments.find(params[:id])
+    end
     
     def set_post
         @post = Post.find(params[:post_id])
