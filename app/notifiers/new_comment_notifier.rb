@@ -3,6 +3,9 @@
 # NewCommentNotifier.with(record: @post, message: "New post").deliver(User.all)
 
 class NewCommentNotifier < ApplicationNotifier
+  alias_method :comment, :record
+
+  has_one :post, through: :record
   # Add your delivery methods
   #
   # deliver_by :email do |config|
@@ -25,9 +28,22 @@ class NewCommentNotifier < ApplicationNotifier
   #
   # required_param :message
 
+  def message
+    "#{comment.user} Commented on #{post.title.truncate(10)}"
+  end
+
+  def path
+    post_path(comment.post || "")
+  end
+
+  def post
+    comment.post
+  end
+
   private
+
   
   def validate_record_type
-    errors.add(:record_type, "must be a Comment") unless record_type == "Comment"
+    errors.add(:record_type, "must be a Comment") unless record.is_a? Comment
   end
 end
