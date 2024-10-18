@@ -1,0 +1,14 @@
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="notificationDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <span class="badge rounded-pill bg-danger">
+            <%= @unread_notifications.count || 0 %> <i class="bi bi-suit-heart-fill"></i>
+        </span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end">
+        <% @unread_notifications.each do |notification| %>
+            <li class="dropdown-item">
+                    <%= link_to notification.event.message, notification.event.path %>
+            </li>
+        <% end %>
+    </ul>
+</li>

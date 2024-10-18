@@ -20,16 +20,16 @@ class NewCommentNotifier < ApplicationNotifier
   # deliver_by :custom do |config|
   #   config.class = "MyDeliveryMethod"
   # end
-  
+
   validates :record, presence: true
   validate :validate_record_type
-  
+
   # Add required params
   #
   # required_param :message
 
   def message
-    "#{comment.user} Commented on #{post.title.truncate(10)}"
+    "#{comment.user.name} commented on #{post.title.truncate(20)}"
   end
 
   def path
@@ -42,7 +42,7 @@ class NewCommentNotifier < ApplicationNotifier
 
   private
 
-  
+
   def validate_record_type
     errors.add(:record_type, "must be a Comment") unless record.is_a? Comment
   end
