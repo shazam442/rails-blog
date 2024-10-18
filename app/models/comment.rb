@@ -11,6 +11,6 @@ class Comment < ApplicationRecord
   private
 
   def notify_user
-    NewCommentNotifier.with(record: self).deliver(post.user)
+    NewCommentNotifier.with(record: self).deliver(post.user) unless user == post.user
   end
 end
