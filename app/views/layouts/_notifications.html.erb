@@ -10,5 +10,8 @@
                     <%= link_to notification.event.message, notification.event.path %>
             </li>
         <% end %>
+        <% if @unread_notifications.count == 0 %>
+            <li class="dropdown-item disabled">No new Notifications!</li>
+        <% end %>
     </ul>
 </li>
