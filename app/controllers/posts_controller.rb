@@ -2,6 +2,9 @@ class PostsController < ApplicationController
   before_action :set_post, only: %i[ show edit update destroy ]
   before_action :authenticate_user!, except: %i[ show index ]
 
+  # @post needs to be defined before
+  before_action(only: :show) { mark_comment_notifications_as_read(@post) }
+
   # GET /posts or /posts.json
   def index
     @posts = Post.all.order(created_at: :desc)
@@ -62,6 +65,12 @@ class PostsController < ApplicationController
   end
 
   private
+    def mark_comment_notifications_as_read(post)
+      if current_user == post.user
+        post.comment_notifications.mark_as_read
+      end
+    end
+  
     # Use callbacks to share common setup or constraints between actions.
     def set_post
       @post = Post.find(params[:id])
