@@ -1,0 +1,23 @@
+<h1 class="text-center"><%= pluralize(@posts.count, "Result") %> found</h1>
+
+<table class="table table-bordered table-dark table-striped table-hover mt-4">
+  <thead>
+    <tr class="">
+      <th><%= sort_link(@query, :title, "Title") %></th>
+      <th><%= sort_link(@query, :body, "Body") %></th>
+      <th><%= sort_link(@query, :user_name, "Author") %></th>
+      <th><%= sort_link(@query, :created_at, "Published") %></th>
+    </tr>
+  </thead>
+
+  <tbody class="table-group-divider">
+    <% @posts.each do |post| %>
+      <tr>
+        <td><%= link_to post.title, post %></td>
+        <td><%= post.body.truncate(50) %></td>
+        <td><%= link_to post.user.name, post.user %></td>
+        <td><%= post.created_at.to_date() %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
