@@ -28,14 +28,14 @@ end
     post = Post.create do |p|
         p.title = "Blog Post #{x}"
         p.body = "Quem pastores lauda vere!"
-        p.user = sam
+        p.user_id = sam
     end
 
     4.times do |y|
         Comment.create do |c|
-            c.body = "I like this Post #{y}",
-            c.post = post,
-            c.user = foobar
+            c.body = "I like this Post #{y}"
+            c.post = post
+            c.user_id = foobar
         end
     end
 end
@@ -43,5 +43,5 @@ end
 Post.create do |p|
     p.title = "Blog Post 9000"
     p.body = "I am Mr Foobar and this is my first Post"
-    p.user = foobar
+    p.user_id = foobar
 end
