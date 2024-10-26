@@ -11,6 +11,7 @@
 sam = User.create do |u|
     u.email = "sam@example.com"
     u.name = "Sam Schams"
+    u.role = User.roles[:admin]
     u.password = "password"
     u.password_confirmation = "password"
 end
@@ -20,14 +21,27 @@ foobar = User.create do |u|
     u.name = "Mr Foobar"
     u.password = "password"
     u.password_confirmation = "password"
+    # default role User
+end
+
+3.times do |x|
+    post = Post.create do |p|
+        p.title = "Blog Post #{x}"
+        p.body = "Quem pastores lauda vere!"
+        p.user_id = sam
+    end
+
+    4.times do |y|
+        Comment.create do |c|
+            c.body = "I like this Post #{y}"
+            c.post = post
+            c.user_id = foobar
+        end
+    end
 end
 
 Post.create do |p|
     p.title = "Blog Post 9000"
     p.body = "I am Mr Foobar and this is my first Post"
-    p.user_id = foobar.id
-end
-
-3.times do |x|
-    Post.create(title: "Title #{x}", body: "Body #{x} words go here idk", user_id: sam.id)
+    p.user_id = foobar
 end
