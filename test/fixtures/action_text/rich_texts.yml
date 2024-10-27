@@ -1,4 +1,19 @@
-# one:
-#   record: name_of_fixture (ClassOfFixture)
-#   name: content
-#   body: <p>In a <i>million</i> stars!</p>
+post_one_content:
+  record: first_post (Post)
+  name: body
+  body: <div class="trix-content"><p>This is the body of the first post with some <strong>rich text</strong> content.</p></div>
+
+post_two_content:
+  record: second_post (Post)
+  name: body
+  body: <div class="trix-content"><p>Content for the second post with some <em>italic text</em>.</p></div>
+
+comment_one_content:
+  record: first_comment (Comment)
+  name: body
+  body: <div class="trix-content"><p>This is a thoughtful comment with <strong>formatting</strong>.</p></div>
+
+comment_two_content:
+  record: second_comment (Comment)
+  name: body
+  body: <div class="trix-content"><p>Another insightful comment with a <a href="http://example.com">link</a>.</p></div>
