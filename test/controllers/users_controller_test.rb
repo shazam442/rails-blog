@@ -2,7 +2,7 @@ require "test_helper"
 
 class UsersControllerTest < ActionDispatch::IntegrationTest
   test "should get profile" do
-    get users_profile_url
+    get user_url(users(:user_sam))
     assert_response :success
   end
 end

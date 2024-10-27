@@ -1,8 +1,16 @@
 require "test_helper"
 
 class AdminControllerTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
+  
+  setup do
+    @post = posts(:first_post)
+    @admin_user = users(:user_admin)
+    sign_in @admin_user
+  end
+  
   test "should get index" do
-    get admin_index_url
+    get admin_dashboard_url
     assert_response :success
   end
 
@@ -22,7 +30,7 @@ class AdminControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get show_post" do
-    get admin_show_post_url
+    get admin_show_post_url(@post)
     assert_response :success
   end
 end
