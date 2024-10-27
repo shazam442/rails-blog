@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  authenticated :user, ->(user) { user.admin? } do
+  authenticated :user, -> { _1.admin? } do
     get "admin/", to: "admin#index", as: "admin_dashboard"
     get "admin/posts"
     get "admin/comments"
